@@ -4,8 +4,8 @@ metadata:
   name: pd-balanced-data-cache-sc
 provisioner: pd.csi.storage.gke.io
 parameters:
-  type: "pd-balanced"
-  data-cache-mode: "writethrough"
-  data-cache-size: "375Gi"
+  type: pd-balanced
+  data-cache-mode: writethrough
+  data-cache-size: "100Gi"
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true

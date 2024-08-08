@@ -1,20 +1,8 @@
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: my-pvc-cache
-spec:
-  storageClassName: pd-balanced-data-cache-sc
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgresql-data-cache
+  name: postgresql-ramdisk
 spec:
   selector:
     matchLabels:
@@ -24,8 +12,8 @@ spec:
       labels:
         app: postgresql
     spec:
-      # nodeSelector:
-      #   cloud.google.com/gke-nodepool: datacache-storage-gke-io=enabled
+      nodeSelector:
+        cloud.google.com/gke-nodepool: datacache-node-pool4
       containers:
       - name: postgresql
         image: 'postgres:14'  # PostgreSQL image version (adjust as needed)
@@ -44,5 +32,5 @@ spec:
           mountPath: /var/lib/postgresql/data2  
       volumes:
       - name: postgresql-data
-        persistentVolumeClaim:
-          claimName: my-pvc-cache 
+        emptyDir:
+          medium: "Memory"

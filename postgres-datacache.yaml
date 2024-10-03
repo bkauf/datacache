@@ -24,8 +24,8 @@ spec:
       labels:
         app: postgresql
     spec:
-      # nodeSelector:
-      #   cloud.google.com/gke-nodepool: datacache-storage-gke-io=enabled
+      nodeSelector:
+        cloud.google.com/gke-nodepool: datacache-node-pool2
       containers:
       - name: postgresql
         image: 'postgres:14'  # PostgreSQL image version (adjust as needed)
